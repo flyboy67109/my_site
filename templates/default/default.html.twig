@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Home</li>
+        </ol>
+    </nav>
+    <div class="w3-container" style="background-image: linear-gradient(45deg, lightgrey, transparent,lightgrey)">
+        {% include "default/carousel.html.twig"%}
+    </div>
+{#{{ render(controller('App\\Controller\\GalleryController:lastpostAction',{'filter':filter})) }}#}
+    {% include 'gallery/lastpost.html.twig' %}
+    {% include 'header.html.twig' %}
+    <div id="gallery">
+{{ render(controller('App\\Controller\\GalleryController:galleryAction',{'filter':filter,'page':page})) }}
+    </div>
+    <!-- Images of Me -->
+    <div class="w3-row-padding w3-padding-16" id="about">
+        <div class="w3-col m6">
+            <img src="/images/Granite_chief.jpg" alt="Granite Chief SOTA Activation" style="height:350px">
+        </div>
+        <div class="w3-col m6">
+            <img src="/images/CAP_headshot.jpg" alt="Me" style="height:350px">
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h3><b>About Me</b></h3>
+        <p>
+            I'm a Web Developer currently working at Grand Canyon Education starting in July of 2012 and this is a
+            site about my hobbies and passions allowing me to learn and test out new technologies at home. I'm building
+            a HiMax Airplane which I started in 2008 while working at LifeLock. I also started brewing my own beer
+            around then and recently tried my hand at making mead. I've also rekindled my interest in Ham Radio and
+            helping out in the community through it by volunteering for SkyWarn, Maricopa Emergency Communication
+            Group, and the Civil Air Patrol. I'm also a Volunteer Examiner and help administering Ham Radio tests every
+            third Monday of the month at 640 N Mesa Dr, Mesa, AZ 85201.
+        </p>
+        <hr>
+
+        <h4>My Technical Skills</h4>
+
+        <p>
+            Starting in 2002 while working as an adjunct professor for Dodge City Community College teaching HTML and
+            continuing in 2006 at Gartman Technical Services where I became a full time PHP web developer, my skills
+            represent a range of coding techniques from free-form PHP scripts to more formalized frameworks using Zend
+            Framework and Symphony. I have provided for numerous clients throughout the greater Phoenix area where I
+            offered a variety of web related skills and services from basic website design to more complex database
+            driven web applications. I can take your ideas all the way from concept to completion while ensuring you
+            stay ahead of the competition.</p>
+        <p>
+            &nbsp;</p>
+        <p>
+            <h4>What is the difference between a Web Designer and a Web Developer?</h4></p>
+        <p>
+            Even though both create web sites, a Web Developer is usually more technical in nature and specializes in
+            server side languages while a Web Designer is more artistic creating visually stunning graphics. On a daily
+            basis, a developer will write code in five or more different languages including (X)HTML, CSS, JavaScript,
+            jQuery, PHP, Perl, and MySQL. A Web Developer will know what an API is and how to use it best for your web
+            site. Although Web Developers are sometimes referred to as programmers, their skills usually exceed those of
+            a conventional software developer. Think of a Web Developer as more of a technical expert with programming
+            skills. Even though a Web Developer can also design web sites, they normally work as a team with a Web
+            Designer to create the drop dead knockout web sites you know and love.</p>
+
+        <p>
+            This web site is not meant as a recruitment tool but simply a platform for me to try out new things while
+            displaying my interests. If you are interesed in more information about my work history, please feel free to
+            visit my <a href="https://www.linkedin.com/in/lyle-crane-a0181112" target="_blank" style="color:maroon" rel="noopener">LinkedIn</a> page.
+        </p>
+
+        {#<p>#}
+            {#<button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">#}
+                {#<i class="fa fa-download w3-margin-right"></i>Download Resume#}
+            {#</button>#}
+        {#</p>#}
+        <hr>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="w3-container w3-padding-large w3-grey">
+        <h4 id="contact"><b>Contact Me</b></h4>
+        {#<div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">#}
+            {#<div class="w3-half w3-dark-grey">#}
+                {#<p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>#}
+                {#<p>email@email.com</p>#}
+            {#</div>#}
+            {#<div class="w3-half w3-teal">#}
+                {#<p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>#}
+                {#<p>Mesa, AZ</p>#}
+            {#</div>#}
+            {#<div class="w3-third w3-dark-grey">#}
+                {#<p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>#}
+                {#<p>512312311</p>#}
+            {#</div>#}
+        {#</div>#}
+        <hr class="w3-opacity">
+        {{ form_start(email_form) }}
+        <div class="w3-red">{{ form_errors(email_form) }}</div>
+        {% for message in app.flashes('notice') %}
+            <div class="w3-green">{{ message }}</div>
+        {% endfor %}
+
+            <div class="form-group">
+                {{ form_label(email_form.name) }}
+                {{ form_widget(email_form.name,{'attr':{'class':'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(email_form.email) }}
+                {{ form_widget(email_form.email,{'attr':{'class':'form-control' }}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(email_form.message) }}
+                {{ form_widget(email_form.message,{'attr':{'class':'form-control','style':'height:100px;'}}) }}
+            </div>
+        <div class="form-group">
+            <div class="g-recaptcha" data-sitekey="6Lf16lkUAAAAAMpshqQ4-gXeWE-cSZrXhv2zYjmI"></div>
+        </div>
+        {{ form_widget(email_form.submit,{'attr':{'class':'fa fa-paper-plane w3-margin-right w3-button w3-black w3-margin-bottom'}}) }}
+            {#<button type="submit" class="w3-button w3-black w3-margin-bottom"><i#}
+                        {#class="fa fa-paper-plane w3-margin-right"></i>Send Message#}
+            {#</button>#}
+        {{ form_end(email_form) }}
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('carousel') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="js/carousel.js"></script>
+    <script type="text/javascript" src="{{ asset("js/gallery.js") }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#portfolio button').click(function () {
+                var filter = $(this).val();
+                var url = "{{ path('gallery_gallery') }}/1/"+filter;
+                $.get(url,function (data) {
+                    $("#gallery").html(data);
+                    $('html, body').animate({
+                        scrollTop: ($('#filters').offset().top)
+                    },500);
+                    //clear class on filter
+                    $("#filters button").removeClass('w3-black');
+                    $("#filters button").addClass('w3-white');
+                    console.log($(this));
+                    // set this class on filter
+                    $("#filter_"+filter).removeClass('w3-white');
+                    $("#filter_"+filter).addClass('w3-black');
+                })
+            })
+        })
+    </script>
+{% endblock %}

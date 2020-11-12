@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ham Radio{% endblock %}
+
+{% block description %}Ham radio hiking blogs and images by Lyle Crane{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ham Radio</li>
+        </ol>
+    </nav>
+    <div class="w3-container">
+        {#{% include 'header.html.twig' %}#}
+        {#{{ render(controller('App\\Controller\\GalleryController:lastpostAction',{'filter':filter})) }}#}
+        {% include 'gallery/lastpost.html.twig' %}
+        <div id="gallery">
+            {{ render(controller('App\\Controller\\GalleryController:galleryAction',{'filter':filter,'page':page})) }}
+        </div>
+    </div>
+    <!-- Images of Me -->
+    <div class="w3-row-padding w3-padding-16" id="about">
+        <div class="w3-col m6">
+            <img src="/images/Granite_chief.jpg" alt="Me" style="height:350px">
+        </div>
+        <div class="w3-col m6">
+            <img src="/images/shack.jpg" alt="Me" style="height:350px">
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h4><b>About Me</b></h4>
+        <p>
+            I was first introduced into Ham Radio back in 1987 when I was attending George Fox College. In 1997, I
+            upgraded to a Technician Plus before moving to Kansas where I let my license lapse. After moving to Arizona,
+            I decided to get my license renewed and in 2014 got my general license and then my Extra the following year.
+            I'm active in SkyWarn working with the Nation Weather Service reporting weather phenomenon and weekly
+            weather nets. I'm also active in Maricopa Emergency Communication Group (MCECG) helping out in various activities
+            throughout the valley and weekly drills. Finally, I like to participate in SOTA, Summits On The Air, where I
+            hike various summits and try to contact other hams around the world who "chase" me to the summit.
+        </p>
+        <hr>
+
+        <h4>Radio Equipment</h4>
+        <p>
+            I prefer to operate Portable Operations where I don't have a permanent antenna set up but instead set one up
+            when I'm operating. The advantage to this is I am able to pack up and deploy my antenna system easier
+            without having to take down and existing antenna or keeping a duplicate antenna system at home. At home, I
+            have a Yeasu FT-450D running 100 watts to a random wire antenna mounted on a telescopic pole up 33 feet. I
+            have made several radio contacts including some into Japan and Chile with this setup. Although, not as
+            efficient as other antenna systems, this gives me the advantage of easily taking down my antenna when I need
+            to deploy elsewhere or when weather turns unsafe to keeping it up.
+        </p>
+
+        <p>
+            When mobile, I typically use my Yaesu FTM-100DR, a 50 watt 2 meter/440 radio that also runs Wires-X allowing
+            digital communications. This radio also has the ability to be easily removed from my vehicle when not needed
+            and used as a base station instead. The additional power allows me to operate when I'm in a more isolated
+            position which can happen when running events for MCECG. And the digital capabilities allow for clear
+            communications over long distances not normally available through standard FM simplex.
+        </p>
+
+        <p>
+            My portable radio system is a Yaesu FT-817D running 5 watts to an End Fed Half Wave antenna. This radio and
+            antenna system is very light weight and can be set up anywhere in minutes. Although, not as powerful as my
+            100-watt radio, using CW or Morse Code, I am able to get people just as far as my 100-watt radio does but
+            running less power. To give some perspective, a cell phone runs about the same wattage and must have cell
+            tower in close proximity to work. My ham radio, using the same power, is able to reach over 1800 miles
+        </p>
+
+        <p>
+            The last radio that I have is a Yaesu FT-1XDR Handheld 2 meter/440 radio with APRS built into it. The
+            advantage of APRS is my radio uses an Automated Packet Reporting System and send out my GPS coordinates when
+            I am hiking or mobile. When I do a SOTA activation, hams that are "chasing" me can follow my progress on
+            <a href="https://aprs.fi" target="_blank">aprs.fi</a> and know when I'm at the summit. If in the event of a real emergency, I can
+            set the system to send out an emergency message alerting those that are watching me that I am in trouble and
+            in need of help.
+        </p>
+        {#<p>#}
+        {#<button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">#}
+        {#<i class="fa fa-download w3-margin-right"></i>Download Resume#}
+        {#</button>#}
+        {#</p>#}
+        <hr>
+    </div>
+{% endblock %}

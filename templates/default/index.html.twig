@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="w3-container" id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to www.LyleCrane.com</h1>
+            </div>
+
+            <div id="status">
+                <p>
+                    This site is currently down for maintenance. Sorry about the inconvience but please come back after
+                    we have finished fixing up the place.
+                </p>
+            </div>
+
+            <div class="w3-padding-large"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('carousel') }}
+<style type="text/css">
+    #mySidebar #menus, footer{
+        display: none;
+    }
+    #black_bar{
+        position: fixed;
+        bottom: 0;
+        left:0;
+        right:0;
+    }
+</style>
+{% endblock %}

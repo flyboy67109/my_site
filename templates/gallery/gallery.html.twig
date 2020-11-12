@@ -1,0 +1,101 @@
+{% block body %}
+
+<!-- First Photo Grid-->
+{% set first_photo_grid = images.first_photo_grid %}
+
+<div class="w3-container">
+    <h1>My Gallery</h1>
+</div>
+    {% if pagination.maxPage == 0 %}
+<div class="w3-row-padding">
+    <h4>No images found</h4>
+</div>
+    {%  else %}
+<div class="w3-row-padding">
+    {% for image in first_photo_grid %}
+        {% if image %}
+        <div class="w3-third w3-container w3-margin-bottom">
+            <a href="{{ asset("/images/#{image.fileName}") }}" target="_blank" rel="noopener">
+                <img src="{{ asset("/images/#{image.fileName}") | imagine_filter('my_thumb') }}" alt="Image of {{ image.section }}" style="width:100%" class="w3-hover-opacity">
+            </a>
+            <div class="w3-container w3-white img-description">
+                <p><b>{{ image.section}}</b></p>
+                <p>{{ image.imageDescription | raw }}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- Second Photo Grid-->
+{% set second_photo_grid = images.second_photo_grid %}
+<div class="w3-row-padding">
+    {% for image in second_photo_grid %}
+        {% if image %}
+        <div class="w3-third w3-container w3-margin-bottom">
+            <a href="{{ asset("/images/#{image.fileName}") }}" target="_blank" rel="noopener">
+                <img src="{{ asset("/images/#{image.fileName}") | imagine_filter('my_thumb') }}" alt="Image of {{ image.section }}" style="width:100%" class="w3-hover-opacity">
+            </a>
+            <div class="w3-container w3-white img-description">
+                <p><b>{{ image.section }}</b></p>
+                <p>{{ image.imageDescription | raw }}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+    {% endif %}
+    {% if pagination.maxPage > 0 %}
+<!-- Pagination -->
+<nav aria-label="Gallery pagination" class="w3-center">
+    <ul class="pagination" style="display: inline-flex">
+        <li class="page-item{% if pagination.page == "1" %} disabled{% endif %}" ><a href="{{ path('gallery_gallery',{'page':'1','filter':filter}) }}" class="page-link">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">First</span>
+            </a>
+        </li>
+        <li class="page-item{% if pagination.minPage == "1" %} disabled{% endif %}" ><a href="{{ path('gallery_gallery',{'page':pagination.minPage,'filter':filter}) }}" class="page-link">
+                <span aria-hidden="true" >&lsaquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        {% for page in pagination.minPage..pagination.maxPage %}
+            {% if page == pagination.page %}
+        <li class="page-item disabled" ><a href="{{ path('gallery_gallery',{'page':page,'filter':filter}) }}" class="page-link">{{ page }}</a></li>
+            {% else %}
+        <li class="page-item" ><a href="{{ path('gallery_gallery',{'page':page,'filter':filter}) }}" class="page-link">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <li class="page-item{%  if pagination.page == pagination.maxPage %} disabled{% endif %}" ><a href="{{ path('gallery_gallery',{'page':pagination.maxPage,'filter':filter}) }}" class="page-link">
+                <span aria-hidden="true">&rsaquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+        <li class="page-item{% if pagination.page == pagination.lastPage %} disabled{% endif %}" ><a href="{{ path('gallery_gallery',{'page':pagination.lastPage,'filter':filter}) }}" class="page-link">
+                <span aria-hidden="true" >&raquo;</span>
+                <span class="sr-only">Last</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(function () {
+        $('.page-link').on('click',function () {
+            event.preventDefault();
+            var url = $(this).attr('href');
+            console.log(url);
+            $.get(url,function (data) {
+                $("#gallery").html(data);
+                $('html, body').animate({
+                    scrollTop: ($('#filters').offset().top)
+                },500);
+            })
+        })
+    })
+
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{
+  "name": "my_project",
+  "version": "1.0.0",
+  "dependencies": {
+    "pikaday": "^1.8.0",
+    "yuicompressor": "^2.4.8"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.28.0",
+    "core-js": "^3.2.1",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.4.1",
+    "webpack-notifier": "^1.6.0"
+  }
+}

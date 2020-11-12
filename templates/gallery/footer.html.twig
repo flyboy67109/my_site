@@ -1,0 +1,68 @@
+{% block body %}
+<!-- Footer -->
+<footer class="w3-container w3-padding-32 w3-dark-grey">
+    <div class="w3-row-padding">
+        <div class="w3-third">
+            {#<h3>FOOTER</h3>#}
+            <p>All photographs appearing on this site are the property of Lyle Crane. They are protected by U.S.
+                Copyright Laws, and are not to be downloaded or reproduced in any way without the written permission of
+                Lyle Crane.<br/> Copyright {{ "now"|date("Y") }} Lyle Crane All Rights Reserved.</p>
+            {#<p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" style="color: #a1c9e2;">w3.css</a></p>#}
+        </div>
+
+        <div class="w3-third">
+            <h3>LATEST BLOG POSTS</h3>
+            <ul class="w3-ul w3-hoverable">
+                {% for post in posts %}
+                    {% if post.slug is not empty %}
+                <li class="w3-padding-16" data="{{ path(post.page,{'post':post.slug}) }}">
+                    {% else %}
+                <li class="w3-padding-16" data="{{ path(post.page,{'post':post.id}) }}">
+                    {% endif %}
+                    {#<img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">#}
+                    <span class="w3-large">{{ post.postDate|date("m/d/Y")}}</span><br>
+                    <span>{{ post.log | raw }}</span>
+                </li>
+                {% endfor %}
+                {#<li class="w3-padding-16">#}
+                    {#<img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">#}
+                    {#<span class="w3-large">Ipsum</span><br>#}
+                    {#<span>Praes tinci sed</span>#}
+                {#</li>#}
+            </ul>
+        </div>
+
+        {#<div class="w3-third">#}
+            {#<h3>POPULAR TAGS</h3>#}
+            {#<p>#}
+                {#<span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">New York</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">London</span>#}
+                {#<span class="w3-tag w3-grey w3-small w3-margin-bottom">IKEA</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">NORWAY</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">DIY</span>#}
+                {#<span class="w3-tag w3-grey w3-small w3-margin-bottom">Ideas</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">Baby</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">Family</span>#}
+                {#<span class="w3-tag w3-grey w3-small w3-margin-bottom">News</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">Clothing</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">Shopping</span>#}
+                {#<span class="w3-tag w3-grey w3-small w3-margin-bottom">Sports</span> <span#}
+                        {#class="w3-tag w3-grey w3-small w3-margin-bottom">Games</span>#}
+            {#</p>#}
+        {#</div>#}
+
+    </div>
+</footer>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(function () {
+       $("footer li").click(function(){
+//           console.log($(this).attr("data"));
+           window.location.href = $(this).attr("data");
+       })
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% block body %}
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 1000px; margin: 0 auto;">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for x in slides|keys %}
+            <li data-target="#myCarousel" data-slide-to="{{ x }}"{% if x == 0 %} class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox" style="text-align: center">
+            {% for slide in slides %}
+            <div class="carousel-item{% if loop.index0 == 0 %} active{% endif %}">
+                <img src="{{ asset("images/headers/#{slide.image}") }}" class="d-block w-100" alt="{{ slide.title }}" height="320">
+                <div class="carousel-caption">
+                    <h3>{{ slide.title }}</h3>
+                    <p>{{ slide.text }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {#{{ parent() }}#}
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            /*width: 70%;*/
+            margin: auto;
+        }
+    </style>
+{% endblock %}

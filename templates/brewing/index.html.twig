@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homebrewing{% endblock %}
+
+{% block description %}Homebrewing blogs and images by Lyle Crane{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Homebrewing</li>
+        </ol>
+    </nav>
+    <div class="w3-container">
+        {#{% include 'header.html.twig' %}#}
+        {#{{ render(controller('App\\Controller\\GalleryController:lastpostAction',{'filter':filter})) }}#}
+        {% include 'gallery/lastpost.html.twig' %}
+        <div id="gallery">
+            {{ render(controller('App\\Controller\\GalleryController:galleryAction',{'filter':filter,'page':page})) }}
+        </div>
+    </div>
+    <!-- Images of Me -->
+    <div class="w3-row-padding w3-padding-16" id="about">
+        <div class="w3-col m6">
+            <img src="/images/carboy.jpg" alt="Me" style="height:350px">
+        </div>
+        <div class="w3-col m6">
+            <img src="/images/Headshot.jpg" alt="Me" style="height:350px">
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h4><b>About My Brews</b></h4>
+        <p>
+            Several years ago, my kids got me a Mr. Beer kit for Father's Day and I found the process interesting and
+            decided I wanted to learn more. Over the next few months, I found a local brew store that I could purchase
+            other equipment and upgrading my beers along with it. I started out with all malt extract beers and tried my
+            hand at partial mash brewing finding the flavor of the later more enjoyable. It also gave me the opportunity
+            to experiment with different recipes and types of beers including a Kolsh and an Imperial Stout.
+        </p>
+        <p>
+            Recently, my wife and I discover a meadery in Prescott, AZ while on vacation there and became interested if
+            it was something that I could do. I had been brewing beers for a number of years as was looking for a new
+            challenge to try. I had tried making wine from a kit and ended up making a moldy, smelly, mess that ended up
+            being tossed down the sink. Mead, however, proved much more forgiving partially from the natural antibiotics
+            found in honey, the primary fermentable sugar in mead. My first mead was a Cherry Melomel which my wife and
+            I found delicious which currently let me to try out other meads as well.
+        </p>
+        <hr>
+
+        <h4>Technical Brewing</h4>
+        <p>
+            Although I have been brewing beers now for several years, I have decided to start with something a little
+            more difficult; mead. Mead is an ancient fermentable drink dating back to almost 30,000 years. Although it
+            has fallen out of favor in place of craft beers and wines. It has experienced a recent resurgence. Using the
+            beer making equipment I already had and some glass jugs I bought, I looked up how and made my first batch of
+            Cherry Melomel. After sampling the results before it even had a chance to age, I was determined to make
+            several more batches.
+        </p>
+        <p>
+            Each batch goes through five stages before being tasted by family and friends. I start with the honey,
+            water, and yeast with a bit of acid to adjust the pH in the primary fermenter for about 30 days. I then move
+            it to the secondary fermenter and add any fruit and/or spices at that time for another 30 days or until it
+            starts to clear. I then move it again to a clarifier for the sediment to settle out to the bottom of the
+            jug. Next, I move it to another clarifier to get any residual sediment out before bottling it and letting it
+            age. Total time between making the mead to drinking is at least six months and sometimes even longer.
+        </p>
+        {#<p>#}
+        {#<button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">#}
+        {#<i class="fa fa-download w3-margin-right"></i>Download Resume#}
+        {#</button>#}
+        {#</p>#}
+        <hr>
+    </div>
+{% endblock %}

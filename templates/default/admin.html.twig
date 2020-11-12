@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration page{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap-datepicker3.min.css') }}">
+    <style type="text/css">
+        /*#image,*/
+        #sync,
+        #post,
+        #maintenance
+        {
+            display:none;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <header id="portfolio">
+        <div class="w3-container">
+            <div class="w3-section w3-bottombar w3-padding-16" id="filters">
+                {% for message in app.flashes('notice') %}
+                <div class="w3-green">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
+<div class="container">
+    <div class="admin w3-padding" id="image">
+        {{ form_start(image_form) }}
+        <div><h1>Images</h1></div>
+        <div class="w3-red">{{ form_errors(image_form) }}</div>
+        <div class="form-group">
+            {{ form_label(image_form.postDate) }}
+            {{ form_widget(image_form.postDate,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(image_form.fileName) }}
+            {{ form_widget(image_form.fileName,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(image_form.imageDescription) }}
+            {{ form_widget(image_form.imageDescription,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(image_form.sectionsId) }}
+            {{ form_widget(image_form.sectionsId,{'attr':{'class':'form-control'}}) }}
+        </div>
+        {{ form_widget(image_form.submit,{'attr':{'class':"w3-btn w3-button w3-grey"}}) }}
+        {{ form_end(image_form) }}
+    </div>
+    <div class="admin w3-padding" id="sync">
+        {{ form_start(update_form) }}
+        <div><h1>Sync</h1></div>
+        <div class="w3-red">{{ form_errors(update_form) }}</div>
+        {{ form_widget(update_form.submit,{'attr':{'class':'w3-btn w3-button w3-grey'},'label':'Syncronize Image Folders'}) }}
+        {{ form_end(update_form) }}
+    </div>
+    <div class="admin w3-padding" id="maintenance">
+        {{ form_start(config_form) }}
+        <div><h1>Configuration</h1></div>
+        <div class="w3_red">{{ form_errors(config_form) }}</div>
+        <div class="form-check">
+            {{ form_widget(config_form.maintenance,{'attr':{'class':'form-check-input'}}) }}
+            {{ form_label(config_form.maintenance) }}
+        </div>
+        <div id="carousel">
+            <h2>Carousel images and data</h2>
+            {{ form_widget(config_form.carousel) }}
+        </div>
+        {{ form_widget(config_form.submit,{'attr':{'class':"w3-btn w3-button w3-grey"}}) }}
+        {{ form_end(config_form) }}
+    </div>
+    <div class="admin w3-padding" id="post">
+        {{ form_start(post_form) }}
+        <div><h1>Posts</h1></div>
+        <div class="w3-red">{{ form_errors(post_form) }}</div>
+        <div class="form-group">
+            {{ form_label(post_form.postDate) }}
+            {{ form_widget(post_form.postDate,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(post_form.title) }}
+            {{ form_widget(post_form.title,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(post_form.log) }}
+            {{ form_widget(post_form.log,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(post_form.sectionId) }}
+            {{ form_widget(post_form.sectionId,{'attr':{'class':'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(post_form.buildHours) }}
+            {{ form_widget(post_form.buildHours,{'attr':{'class':'form-control'}}) }}
+        </div>
+        {{ form_widget(post_form.submit,{'attr':{'class':'w3-btn w3-button w3-grey'}}) }}
+        {{ form_end(post_form) }}
+        <div class="w3-padding-large"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('/js/tinymce/tinymce.min.js') }}"></script>
+<script>
+    tinymce.init({
+        selector:'textarea',
+        relative_urls: false,
+        height: 300,
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste imagetools wordcount"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+        setup: function (editor){
+            editor.on('change',function () {
+                editor.save();
+            })
+        },
+        image_dimensions: false
+});
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#menus a").click(function(e){
+            e.preventDefault();
+            $(".admin").hide();
+            $("#"+$(this).attr('title')).show();
+        })
+
+        $("#image_form_postDate, #post_form_postDate").datepicker();
+
+        var carousel = $("#config_form_carousel").val();
+//console.log(JSON.parse(carousel));
+        if (carousel.length != 0) {
+            var html = '';
+            $.each(JSON.parse(carousel), function (i, item) {
+//console.log(item.image);
+                html = '<div class="row">';
+                html = html + '<div class="form-group w3-third">';
+                html = html + '<label for="carousel_images_' + i + '">Carousel Image</label>';
+                html = html + '<input type="text" id="carousel_images_' + i + '" name="carousel_images[]" class="form-control" value="' + item.image + '">';
+                html = html + '</div>';
+                html = html + '<div class="form-group w3-third">';
+                html = html + '<label for="carousel_title_' + i + '">Image Title</label>';
+                html = html + '<input type="text" id="carousel_title_' + i + '" name="carousel_titles[]" class="form-control" value="' + item.title + '">';
+                html = html + '</div>';
+                html = html + '<div class="form-group w3-third">';
+                html = html + '<label for="carousel_text_' + i + '">Image Description</label>';
+                html = html + '<input type="text" id="carousel_text_' + i + '" name="carousel_text[]" class="form-control" value="' + item.text + '">';
+                html = html + '</div>';
+                html = html + '</div>';
+                $("#carousel").append(html);
+            })
+        }
+        html = '<div class="row">';
+        html = html + '<div class="form-group w3-third">';
+        html = html + '<label for="carousel_images_' + carousel.length + 1 + '">Carousel Image</label>';
+        html = html + '<input type="text" id="carousel_images_' + carousel.length + 1 + '" name="carousel_images[]" class="form-control">';
+        html = html + '</div>';
+        html = html + '<div class="form-group w3-third">';
+        html = html + '<label for="carousel_title_' + carousel.length + 1 + '">Image Title</label>';
+        html = html + '<input type="text" id="carousel_title_' + carousel.length + 1 + '" name="carousel_titles[]" class="form-control">';
+        html = html + '</div>';
+        html = html + '<div class="form-group w3-third">';
+        html = html + '<label for="carousel_text_' + carousel.length + 1 + '">Image Description</label>';
+        html = html + '<input type="text" id="carousel_text_' + carousel.length + 1 + '" name="carousel_text[]" class="form-control">';
+        html = html + '</div>';
+        html = html + '</div>';
+        $("#carousel").append(html);
+    })
+
+</script>
+{% endblock %}

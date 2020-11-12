@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ham Radio Log | {{ log.title }}{% endblock %}
+
+{% block description %}Ham radio hiking blog; {{ log.title }}{% endblock %}
+
+{% block body %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ path("radio") }}">Ham Radio</a></li>
+            <li class="breadcrumb-item"><a href="{{ path("radio/post") }}">Posts</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ log.title }}</li>
+        </ol>
+    </nav>
+    {#<div class="w3-container">#}
+        {#{% include 'header.html.twig' %}#}
+        {#<div class="w3-container" style="margin-top: -25px;">#}
+            {#<a href="{{ path("radio/post") }}">#}
+                {#<button class="w3-button w3-white">#}
+                    {#<i class="fa fa-book w3-margin-right"></i>#}
+                    {#All Hamradio Posts#}
+                {#</button>#}
+            {#</a>#}
+        {#</div>#}
+    {#</div>#}
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px" id="post">
+        {% include 'post.html.twig' %}
+        {% if log.postDate is empty %}
+            <h4><b>No Log Found</b></h4>
+        {% else %}
+            <h1 data="{{ log.id }}">{{ log.title }}</h1>
+        <h4><b>{{ log.postDate |date("m/d/Y") }}</b></h4>
+        {% endif %}
+        {#<h5><u>{{ log.section }}</u></h5>#}
+        <p>
+            {{ log.log | raw }}
+            <div class="fb-like" data-href="http://www.lylecrane.com{{ app.request.requestUri }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+        </p>
+    </div>
+{% endblock %}

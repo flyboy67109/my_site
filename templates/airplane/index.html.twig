@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Airplane Construction{% endblock %}
+
+{% block description %}HiMax construction logs and images{% endblock %}
+
+{% block body %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Airplane</li>
+  </ol>
+</nav>
+<div>
+    <div class="w3-container">
+        {#{% include 'header.html.twig' %}#}
+        {#{{ render(controller('App\\Controller\\GalleryController:lastpostAction',{'filter':filter})) }}#}
+        {% include 'gallery/lastpost.html.twig' %}
+        <div id="gallery">
+            {{ render(controller('App\\Controller\\GalleryController:galleryAction',{'filter':filter,'page':page})) }}
+        </div>
+    </div>
+    <!-- Images of Me -->
+    <div class="w3-row-padding w3-padding-16" id="about">
+        <div class="w3-col m6">
+            <img src="/images/Airplane.jpg" alt="Me" style="height:350px;">
+        </div>
+        <div class="w3-col m6">
+            <img src="/images/Headshot_airplane.jpg" alt="Me" style="height:350px">
+        </div>
+    </div>
+
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h4><b>About My Airplane</b></h4>
+        <p>
+            I'm currently building a HiMax 1700R, a single seat wood and fabric aircraft built from plans I purchased in
+            2009. The HiMax is an all wood frame construction made primarily from aircraft quality spruce covered with a
+            Dacron covering and painted with latex paint. Its top speed is 80 mph and cruises at 70 mph with a stall
+            speed between 28 to 31 mph. It's a high wing aircraft not really designed for long cross-country flights but
+            rather for "punching holes in the sky" and having fun.
+        </p>
+        <h4>Build status</h4>
+        <p>
+            People will often ask me, "So, how's the aircraft coming along?" in which I shrug my shoulder and say that
+            it currently isn't. Why? Well, the short answer is money. The long answer is, I started building this when I
+            was working at Arizona Aviation on Falcon Field in Mesa, Arizona. The company was purchased in the fall of
+            2007 and was hit by the recession. There is a saying in aviation; "Do you want to have a million dollars in
+            aviation? Start with two million dollars." The owners struggled to keep the company running but, five years
+            later, were forced to close.
+        </p>
+        <p>
+            What does that have to do with me? Well, I was planning on storing my airplane in one of their hangers. Now
+            that they don't exist, I no longer have a hanger to store my airplane and finish it. The second thing that
+            I've had to deal with is the engine. I no longer have the expertise I once had to get it running nor the
+            tools to work on it correctly. I'm looking for a running BMW R75/5 or R75/6 motorcycle engine and the one I
+            have is too damaged to safely continue fixing up. If you know of a good working engine, please feel free to
+            contact me so I can see if it is something that I can use.
+        </p>
+        <hr>
+
+        {#<h4>Technical Skills</h4>#}
+        {#<p>#}
+
+        {#</p>#}
+        {#<p>#}
+        {#<button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">#}
+        {#<i class="fa fa-download w3-margin-right"></i>Download Resume#}
+        {#</button>#}
+        {#</p>#}
+        <hr>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% block body %}
+    {% for post in log %}
+        {% if post.slug is not empty %}
+        <li class="w3-padding-16 lazy" data="{{ path(post.path,{'post':post.slug}) }}">
+        {% else %}
+            <li class="w3-padding-16 lazy" data="{{ path(post.path,{'post':post.id}) }}">
+        {% endif %}
+        {% set runtimeConfig = {"thumbnail": {"size": [100,100]},"background":{"size":[102,102]}} %}
+        <span class="w3-large">{{ post.postDate|date("m/d/Y")}} {{ post.title }}</span>
+        <div style="display:flex">
+            <img src="{{ asset(post.image) | imagine_filter('my_thumb',runtimeConfig) }}" data-image="{{ post.image }}">
+            <span class="w3-padding-small">{{ post.log | raw }}</span>
+        </div>
+        </li>
+    {% endfor %}
+{% endblock %}

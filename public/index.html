@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="theme-color" content="#a94442">
+    <meta charset="UTF-8"/>
+    <title>Welcome!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Lyle Crane; Airplanes, Ham Radio, and Homebrewing">
+    <link rel="manifest" href="build/manifest.json">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
+    <link rel="stylesheet" href="/build/vendors~app.css">
+    <link rel="stylesheet" href="/build/app.css">
+    <!--<link rel="stylesheet" href="/build/carousel.css">-->
+    <style type="text/css">
+        #mySidebar #menus, footer {
+            display: none;
+        }
+
+        #black_bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon.png">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38527865-1"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-38527865-1');
+    </script>
+</head>
+<body class="w3-light-grey w3-content" style="max-width:100%">
+<!-- facebook like button -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;left:0;" id="mySidebar"><br>
+    <div class="w3-container">
+        <a href="/" onclick="event.preventDefault(); w3_close();"
+           class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+           title="close menu">
+            <i class="fa fa-remove"></i>
+        </a>
+        <a href="/">
+            <img src="/images/lylecrane.png" style="width:45%;" class="w3-round" alt="Logo large"><br><br>
+        </a>
+    </div>
+    <div class="w3-bar-block" id="menus">
+
+    </div>
+    <div class="w3-panel w3-large" id="social-media">
+        <a href="https://www.facebook.com/lyle.crane" target="_blank" rel="noopener"><i
+                class="fa fa-facebook-official w3-hover-opacity"></i></a>
+        <a href="https://twitter.com/LyleCrane?ref_src=twsrc%5Etfw" target="_blank" rel="noopener"><i
+                class="fa fa-twitter w3-hover-opacity"></i></a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <a href="https://www.linkedin.com/in/lyle-crane-a0181112" target="_blank" rel="noopener"><i
+                class="fa fa-linkedin w3-hover-opacity"></i></a>
+    </div>
+</nav>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+    <a href="/"><img src="/images/lylecrane.png" style="width:65px;"
+                     class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity" alt="Logo small"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+            class="fa fa-bars"></i></span>
+    <div class="w3-container" id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to www.LyleCrane.com</h1>
+            </div>
+
+            <div id="status">
+                <p>
+                    This site is currently down for maintenance. Sorry about the inconvience but please come back after
+                    we have finished fixing up the place.
+                </p>
+            </div>
+
+            <div class="w3-padding-large"></div>
+        </div>
+    </div>
+    <div class="w3-black w3-center w3-padding-24" id="black_bar">
+        Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+                      title="W3.CSS" target="_blank" class="w3-hover-opacity" style="color:#5C9BD1" rel="noopener">w3.css</a>
+    </div>
+    <!-- Footer -->
+    <footer class="w3-container w3-padding-32 w3-dark-grey">
+        <div class="w3-row-padding">
+            <div class="w3-third">
+                <p>All photographs appearing on this site are the property of Lyle Crane. They are protected by U.S.
+                    Copyright Laws, and are not to be downloaded or reproduced in any way without the written permission
+                    of
+                    Lyle Crane.<br/> Copyright 2019 Lyle Crane All Rights Reserved.</p>
+            </div>
+
+            <div class="w3-third">
+
+            </div>
+
+
+        </div>
+    </footer>
+
+    <!-- End page content -->
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% block body %}
+<!-- Header -->
+<header id="portfolio">
+
+    <div class="w3-container">
+        <div class="w3-section w3-padding-16" id="filters">
+            {% if app.request.attributes.get('_route') == 'homepage' %}
+                <span class="w3-margin-right">Filter:</span>
+                <button class="w3-button {% if filter == "" %}w3-black{% else %}w3-white{% endif %}"value="all" id="filter_all">ALL</button>
+                <button class="w3-button {% if filter == "airplane" %}w3-black{% else %}w3-white{% endif %}" value="airplane" id="filter_airplane"><i class="fa fa-plane w3-margin-right"></i>Airplane</button>
+                <button class="w3-button {% if filter == "brewing" %}w3-black{% else %}w3-white{% endif %} w3-hide-small" value="brewing" id="filter_brewing"><i class="fa fa-beer w3-margin-right"></i>Homebrewing</button>
+                <button class="w3-button {% if filter == "radio" %}w3-black{% else %}w3-white{% endif %} w3-hide-small" value="radio" id="filter_radio"><i class="fa fa-headphones w3-margin-right"></i>Ham Radio</button>
+            {% elseif app.request.attributes.get('_route') == 'airplane' or app.request.attributes.get('_route') == 'airplane/post' %}
+                <a href="{{ path("airplane") }}"><button class="w3-button w3-white"><i class="fa fa-plane w3-margin-right"></i>Airplane</button></a>
+            {% elseif app.request.attributes.get('_route') == 'brewing' or app.request.attributes.get('_route') == 'brewing/post' %}
+                <a href="{{ path("brewing") }}" ><button class="w3-button w3-white"><i class="fa fa-beer w3-margin-right"></i>Homebrewing</button></a>
+            {% elseif app.request.attributes.get('_route') == 'radio' or app.request.attributes.get('_route') == 'radio/post' %}
+                <a href="{{ path("radio") }}" ><button class="w3-button w3-white"><i class="fa fa-headphones w3-margin-right"></i>Ham Radio</button></a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block javascripts %}
+    <!-- jQuery library -->
+    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+{#<script type="text/javascript">#}
+    {#$(function () {#}
+        {#$('#portfolio button').click(function () {#}
+            {#var filter = $(this).val();#}
+            {#var url = "{{ path('gallery_gallery') }}/1/"+filter;#}
+            {#$.get(url,function (data) {#}
+                {#$("#gallery").html(data);#}
+                {#$('html, body').animate({#}
+                    {#scrollTop: ($('#filters').offset().top)#}
+                {#},500);#}
+                {#//clear class on filter#}
+                {#$("#filters button").removeClass('w3-black');#}
+                {#$("#filters button").addClass('w3-white');#}
+                {#console.log($(this));#}
+                {#// set this class on filter#}
+                {#$("#filter_"+filter).removeClass('w3-white');#}
+                {#$("#filter_"+filter).addClass('w3-black');#}
+            {#})#}
+        {#})#}
+    {#})#}
+{#</script>#}
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ filter|capitalize }} post list{% endblock %}
+
+{% block body %}
+    {#{{ dump() }}#}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path("homepage") }}">Home</a></li>
+            {% if filter is not empty %}
+            <li class="breadcrumb-item"><a href="{{ path(log.path) }}">{{ filter | capitalize }}</a></li>
+            {% endif %}
+            <li class="breadcrumb-item active" aria-current="page">Posts</li>
+        </ol>
+    </nav>
+    {#<div class="w3-container">#}
+        {#{% include 'header.html.twig' %}#}
+    {#</div>#}
+    {{ render(controller('App\\Controller\\GalleryController:lastpostAction',{'filter':filter})) }}
+    {% if sections is defined %}
+    <div class="w3-container w3-section w3-padding-16" id="sections">
+        <span class="w3-margin-right">Sections:</span>
+        {% for key, sect in sections %}
+        <button class="w3-button {% if key == section %}w3-black{% else %}w3-white{% endif %}"value="{{ key }}">{{ sect }}</button>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div id="posts">
+        <ul class="w3-ul w3-hoverable">
+    {% if section is not defined %}
+        {% set section = 0 %}
+    {% endif %}
+    {{ render(controller('App\\Controller\\GalleryController:postlistAction',{'filter':filter,'section':section})) }}
+        </ul>
+    </div>
+    <div class="w3-center" style="display:none;" id="loading">
+        <img src="{{ asset('images/loading.gif') }}">
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+
+            var start = 6;// gets the next 5 records starting with record index "start"
+            var key = 1;// used to lock ajax when in use
+            var section = 0;
+
+            $("#posts li").click(function(){
+                window.location.href = $(this).attr("data");
+            })
+            
+            $("#sections button").click(function () {
+                section = $(this).val();
+                //remove black from all buttons and replace with white
+                $("#sections button").removeClass("w3-black");
+                $("#sections button").addClass("w3-white");
+                // set the class to this button to black
+                $(this).removeClass("w3-white");
+                $(this).addClass("w3-black");
+                $.ajax({
+                    url:"{{ path('postlist') }}",
+                    data: { filter: "{{ filter }}", section: section},
+                    async: true
+                })
+                    .done(function (html) {
+                        if(html.length > 5){
+                            $("#posts ul").html(html);
+                            key = 1;//reset key
+                            start = 6;//reset for new list
+                        }
+
+                        $("#posts li").click(function(){
+                            window.location.href = $(this).attr("data");
+                        })
+                    })
+            })
+
+            window.onscroll = function() {
+                var d = document.documentElement;
+                var offset = d.scrollTop + window.innerHeight;
+                var height = d.offsetHeight - $("footer").height();
+
+//                console.log("height: "+height);
+//                console.log('offset: '+offset);
+
+
+                if (offset >= height && offset <= (height + 100) && key == 1) {
+                    $("#loading").show();//show the spinner
+                    key = 0;//lock out ajax from firing before it's done
+                    $.ajax({
+                        url:"{{ path('postlist') }}",
+                        data: { filter: "{{ filter }}", first: start, section: section },
+                        async: true
+                    })
+                        .done(function (html) {
+                            $("#loading").hide();//hide the spinner
+                            if(html.length > 5){
+                                key = 1;//unlock ajax because it's done and there was something to display
+                                $("#posts ul").append(html);
+                                start = start + 5;
+                            }
+
+                            $("#posts li").click(function(){
+                                window.location.href = $(this).attr("data");
+                            })
+                        });
+                }
+            };
+        })
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="/build/app.css">
+<style type="text/css">
+    #allposts{
+        display: none;
+    }
+</style>
+{% endblock %}

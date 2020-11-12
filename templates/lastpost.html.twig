@@ -1,0 +1,30 @@
+{% block body %}
+<div class="w3-container w3-padding-16" id="latest_post">
+    <div class="w3-bottombar">
+        {# must have at least a postId #}
+        {% if last_post.id is not empty %}
+            <div class="w3-padding-32 post-container">
+                <img src="{{ asset("/images/#{last_post.image}")}}" style="max-width: 100%; margin: auto;">
+                <div class="post-data">
+                    <h4>Latest post about {{ last_post.section }} on {{ last_post.postDate | date('m/d/Y')}}</h4>
+                    <p>
+                        {{ last_post.log }}
+                    </p>
+                    <div style="text-align: right">
+                        {% if last_post.title is not empty %}
+                        <a href="{{ path(last_post.page,{'post':last_post.title}) }}" class="w3-btn w3-black">Read More</a>
+                        {% else %}
+                        <a href="{{ path(last_post.page,{'post':last_post.id}) }}" class="w3-btn w3-black">Read More</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if app.request.attributes.get('filter') is not null %}
+            <div class="w3-padding-16 post-container" id="allposts">
+                <a href="{{ path(last_post.page) }}" class="w3-btn w3-grey">See All Posts</a>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% block body %}
+
+<!-- First Photo Grid-->
+{% set first_photo_grid = images.first_photo_grid %}
+
+<div class="w3-container">
+    <h1>My Gallery</h1>
+</div>
+    {% if pagination.maxPage == 0 %}
+<div class="w3-row-padding">
+    <h4>No images found</h4>
+</div>
+    {%  else %}
+<div class="w3-row-padding">
+    {% for image in first_photo_grid %}
+        {% if image %}
+        <div class="w3-third w3-container w3-margin-bottom">
+            <a href="{{ asset("/images/#{image.fileName}") }}" target="_blank" rel="noopener">
+                <img src="{{ asset("/images/#{image.fileName}") | imagine_filter('my_thumb') }}" alt="Image of {{ image.section }}" style="width:100%" class="w3-hover-opacity">
+            </a>
+            <div class="w3-container w3-white img-description">
+                <p><b>{{ image.section}}</b></p>
+                <p>{{ image.imageDescription | raw }}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<!-- Second Photo Grid-->
+{% set second_photo_grid = images.second_photo_grid %}
+<div class="w3-row-padding">
+    {% for image in second_photo_grid %}
+        {% if image %}
+        <div class="w3-third w3-container w3-margin-bottom">
+            <a href="{{ asset("/images/#{image.fileName}") }}" target="_blank" rel="noopener">
+                <img src="{{ asset("/images/#{image.fileName}") | imagine_filter('my_thumb') }}" alt="Image of {{ image.section }}" style="width:100%" class="w3-hover-opacity">
+            </a>
+            <div class="w3-container w3-white img-description">
+                <p><b>{{ image.section }}</b></p>
+                <p>{{ image.imageDescription | raw }}</p>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+    {% endif %}
+    {% if pagination.maxPage > 0 %}
+<!-- Pagination -->
+<div class="w3-center w3-padding-32" id="pagination">
+    <div class="w3-bar">
+        <a href="{{ path('gallery_gallery',{'page':'1','filter':filter}) }}" class="w3-bar-item w3-button w3-hover-black" onclick="pagination('{{ path('gallery_gallery',{'page':'1','filter':filter}) }}')">&laquo;</a>
+        <a href="{{ path('gallery_gallery',{'page':pagination.minPage,'filter':filter}) }}" class="w3-bar-item w3-button w3-hover-black" onclick="pagination('{{ path('gallery_gallery',{'page':pagination.minPage,'filter':filter}) }}')">&lsaquo;</a>
+        {% for page in pagination.minPage..pagination.maxPage %}
+            {% if page == pagination.page %}
+        <a href="{{ path('gallery_gallery',{'page':page,'filter':filter}) }}" class="w3-bar-item w3-black w3-button" onclick="pagination('{{ path('gallery_gallery',{'page':page,'filter':filter}) }}')">{{ page }}</a>
+            {% else %}
+        <a href="{{ path('gallery_gallery',{'page':page,'filter':filter}) }}" class="w3-bar-item w3-button w3-hover-black" onclick="pagination('{{ path('gallery_gallery',{'page':page,'filter':filter}) }}')">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+        <a href="{{ path('gallery_gallery',{'page':pagination.maxPage,'filter':filter}) }}" class="w3-bar-item w3-button w3-hover-black" onclick="pagination('{{ path('gallery_gallery',{'page':pagination.maxPage,'filter':filter}) }}')">&rsaquo;</a>
+        <a href="{{ path('gallery_gallery',{'page':pagination.lastPage,'filter':filter}) }}" class="w3-bar-item w3-button w3-hover-black" onclick="pagination('{{ path('gallery_gallery',{'page':pagination.lastPage,'filter':filter}) }}')">&raquo;</a>
+    </div>
+</div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <!-- jQuery library -->
+    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>#}
+<script type="text/javascript">
+    $(function () {
+        function pagination(url) {
+            event.preventDefault();
+            $.get(url,function (data) {
+                $("#gallery").html(data);
+                $('html, body').animate({
+                    scrollTop: ($('#filters').offset().top)
+                },500);
+            })
+        }
+    })
+</script>
+{% endblock %}

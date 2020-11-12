@@ -1,0 +1,20 @@
+<div class="nav">
+    {% if log.prevPost is null %}
+        <div class="w3-btn w3-disabled">Previous Post</div>
+    {% else %}
+        {% if log.prevPost.slug is not empty %}
+            <div class="w3-hover-grey w3-btn"><a href="{{ path(log.path,{post:log.prevPost.slug}) }}" >Previous Post</a></div>
+        {% else %}
+            <div class="w3-hover-grey w3-btn"><a href="{{ path(log.path,{post:log.prevPost.id}) }}" >Previous Post</a></div>
+        {% endif %}
+    {% endif %}
+    {% if log.nextPost is null %}
+        <div class="w3-btn w3-disabled" style="float:right">Next Post</div>
+    {% else %}
+        {% if log.nextPost.slug is not empty %}
+            <div class="w3-hover-grey w3-btn" style="float:right"><a href="{{ path(log.path,{post:log.nextPost.slug}) }}" >Next Post</a></div>
+        {% else %}
+            <div class="w3-hover-grey w3-btn" style="float:right"><a href="{{ path(log.path,{post:log.nextPost.id}) }}" >Next Post</a></div>
+        {% endif %}
+    {% endif %}
+</div>

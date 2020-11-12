@@ -1,12 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta name="theme-color" content="#a94442">
+        <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Description" content="{% block description %}Lyle Crane; Airplanes, Ham Radio, and Homebrewing{% endblock %}">
+        <link rel="manifest" href="build/manifest.json">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        {#<link rel="stylesheet" href="{{ asset('css/main.css') }}">#}
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <style>
+        <style>
+            body, h1, h2, h3, h4, h5, h6 {
+                font-family: "Raleway", sans-serif
+            }
+        </style>
+        {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('apple-touch-icon.png') }}">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-38527865-1"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-38527865-1');
+        </script>
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <body class="w3-light-grey w3-content" style="max-width:100%">
+    <!-- facebook like button -->
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        {% include 'sidebar.html.twig' %}
+        <!-- Overlay effect when opening sidebar on small screens -->
+        <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+             title="close side menu" id="myOverlay"></div>
+        <!-- !PAGE CONTENT! -->
+        <div class="w3-main" style="margin-left:300px">
+            <a href="/"><img src="{{ asset('images/lylecrane.png') }}" style="width:65px;"
+                             class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity" alt="Logo small"></a>
+            <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                        class="fa fa-bars"></i></span>
+            {% block body %}{% endblock %}
+            <div class="w3-black w3-center w3-padding-24" id="black_bar">
+                Powered by <a href="https://www.w3schools.com/w3css/default.asp"
+                                                    title="W3.CSS" target="_blank" class="w3-hover-opacity" style="color:#5C9BD1" rel="noopener">w3.css</a>
+            </div>
+            {% if app.request.attributes.get('_route') == 'app_default_admin' %}
+                {# do nothing and hide the footer #}
+            {% else %}
+            {{ render(controller('App\\Controller\\GalleryController:footerAction')) }}
+            {% endif %}
+            <!-- End page content -->
+        </div>
+        {#<!-- jQuery library -->#}
+
+        <!-- Latest compiled JavaScript -->
+    {#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>#}
+    <script type="text/javascript" src="{{ asset('js/main.js') }}" ></script>
+        {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
     </body>
 </html>

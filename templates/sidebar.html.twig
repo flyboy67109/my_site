@@ -1,0 +1,51 @@
+{% block body %}
+<!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;left:0;" id="mySidebar"><br>
+        <div class="w3-container">
+            <a href="/" onclick="event.preventDefault(); w3_close();" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+               title="close menu">
+                <i class="fa fa-remove"></i>
+            </a>
+            <a href="{{ path('homepage') }}">
+            <img src="{{ asset('images/lylecrane.png') }}" style="width:45%;" class="w3-round" alt="Logo large"><br><br>
+            </a>
+        </div>
+        {% if app.request.attributes.get('_route') == 'admin' %}
+        <div class="w3-bar-block" id="menus">
+            <a href="#image" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" title="image"><i
+                        class="fa fa-th-large fa-fw w3-margin-right" ></i>UPDATE IMAGE</a>
+            <a href="#sync" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" title="sync"><i
+                        class="fa fa-th-large fa-fw w3-margin-right" ></i>SYNC IMAGE DIRECTORY</a>
+            <a href="#maintenance" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" title="maintenance"><i
+                        class="fa fa-th-large fa-fw w3-margin-right" ></i>CONFIGURATION</a>
+            <a href="#post" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" title="post"><i
+                        class="fa fa-th-large fa-fw w3-margin-right" ></i>ADD POST</a>
+        </div>
+        {% else %}
+        <div class="w3-bar-block" id="menus">
+            <a href="{{ path('homepage') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding{% if app.request.attributes.get('_route') == 'homepage' %} w3-text-custom{% endif %}"><i
+                        class="fa fa-th-large fa-fw w3-margin-right"></i>HOME</a>
+            <a href="{{ path('airplane') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding{% if app.request.attributes.get('_route') == 'airplane' %} w3-text-custom{% endif %}"><i
+                        class="fa fa-th-large fa-fw w3-margin-right"></i>AIRPLANE</a>
+            <a href="{{ path('brewing') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding{% if app.request.attributes.get('_route') == 'brewing' %} w3-text-custom{% endif %}"><i
+                        class="fa fa-th-large fa-fw w3-margin-right"></i>HOMEBREWING</a>
+            <a href="{{ path('radio') }}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding{% if app.request.attributes.get('_route') == 'radio' %} w3-text-custom{% endif %}"><i
+                        class="fa fa-th-large fa-fw w3-margin-right"></i>HAM RADIO</a>
+            {% if route is defined %}
+            <a href="{{ path(route) }}#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding" id="about-link"><i
+                        class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a>
+            {% endif %}
+            <a href="{{ path('homepage') }}#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                        class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+        </div>
+        <div class="w3-panel w3-large" id="social-media">
+            <a href="https://www.facebook.com/lyle.crane" target="_blank" rel="noopener"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+            {#<i class="fa fa-instagram w3-hover-opacity"></i>#}
+            {#<i class="fa fa-snapchat w3-hover-opacity"></i>#}
+            {#<i class="fa fa-pinterest-p w3-hover-opacity"></i>#}
+            <a href="https://twitter.com/LyleCrane?ref_src=twsrc%5Etfw" target="_blank" rel="noopener"><i class="fa fa-twitter w3-hover-opacity"></i></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a href="https://www.linkedin.com/in/lyle-crane-a0181112" target="_blank" rel="noopener"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+        </div>
+        {% endif %}
+    </nav>
+{% endblock %}
